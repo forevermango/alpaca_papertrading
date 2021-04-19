@@ -20,6 +20,10 @@ def get_account():
     r = requests.get(ACCOUNT_URL, headers=HEADERS)
     return json.loads(r.content)
 
+def get_orders():
+    r = requests.get(ORDERS_URL, headers=HEADERS)
+    return json.loads(r.content)
+
 def create_order(symbol, qty, side, type, time_in_force):
     data = {
         "symbol": symbol,
@@ -33,5 +37,8 @@ def create_order(symbol, qty, side, type, time_in_force):
     return json.loads(r.content)
 
 response = create_order("AAPL", 100, "buy", "market", "gtc")
+response = create_order("GME", 1000, "buy", "market", "gtc")
+
+orders = get_orders()
 
 print(response)
