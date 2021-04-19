@@ -1,7 +1,14 @@
-import requests, json, datetime, threading 
-import time 
+import requests 
+import json
+#import alpaca_trade_api
+#from alpaca_trade_api.rest import REST
+#api = REST()
 
-from sample_config import *
+from config import *
+#from alpaca_trade_api.rest import REST
+#api = REST()
+
+#api.get_bars("AAPL", TimeFrame.Hour, "2021-02-08", "2021-02-08", limit=10, adjustment='raw').df
 
 
 BASE_URL = 'https://paper-api.alpaca.markets'
