@@ -1,5 +1,8 @@
-import requests, json
+import requests, json, datetime, threading 
+import time 
+
 from sample_config import *
+
 
 BASE_URL = 'https://paper-api.alpaca.markets'
 ACCOUNT_URL = "{}/v2/account".format(BASE_URL)
@@ -23,4 +26,5 @@ def create_order(symbol, qty, side, type, time_in_force):
     return json.loads(r.content)
 
 response = create_order("AAPL", 100, "buy", "market", "gtc")
+
 print(response)
