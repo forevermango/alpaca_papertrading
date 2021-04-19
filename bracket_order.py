@@ -17,22 +17,30 @@ def get_orders():
     r = requests.get(ORDERS_URL, headers=HEADERS)
     return json.loads(r.content)
 
-def create_order(symbol, qty, side, type, time_in_force):
-    data = {
-        "symbol": symbol,
-        "qty": qty,
-        "side": side,
-        "type": type,
-        "time_in_force": time_in_force
+#response = create_order("AAPL", 100, "buy", "market", "gtc")
+#response = create_order("GME", 1000, "buy", "market", "gtc")
+#orders = get_orders()
+#print(response)
+#print(orders)
+
+data = {
+    "symbol": "AAPL",
+    "qty": 1,
+    "side": "buy",
+    "type": "market",
+    "time_in_force": "gtc",
+    "take-profit": {
+        "limit_price": "140"
+    }, 
+    "stop_loss": {
+        "stop_price": "135",
+#can take off for day trades
+        "limit_price": "130"
     }
+}
 
-    r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
-    return json.loads(r.content)
+r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
 
-response = create_order("AAPL", 100, "buy", "market", "gtc")
-response = create_order("GME", 1000, "buy", "market", "gtc")
-
-orders = get_orders()
+response = json.loads(r.content)
 
 print(response)
-print(orders)
