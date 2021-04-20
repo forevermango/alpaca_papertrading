@@ -30,5 +30,60 @@ class LongShort:
         self.shortAmount = 0
         self.timeToClose = None
 
-        
+    def run(self):
+        #cancel existing orders so they dont impant buying power
+        orders = self.alpaca.list_orders(status="open")
+        for order in orders:
+            self.alpaca.cancel_order(order.id)
+
+        #wait for market to open
+        print("Waiting for market to open..")
+        tAMO = threading.Thread(target=self.awaitMarketOpen)
+        tAMO.start()
+        tAMO.join()
+        print("Market Opened")
+
+        #rebalance portfolio every minutte
+        while True:
+
+            #Figure out when the market will close to prepare to sell prior 
+            clock = self.alpaca.get_clock()
+            closingTime = clock.next_close.replace 
+            (tzinfo=datetime.timezone.utc).timrstamp()
+            currTime = clock.timestamp.replace
+            (tzinfo=datetime.timezone.utc).timrstamp()
+            self.timeToClose = closingTime - currTime
+
+            if(self.timeToClose < (60 *15):
+
+                print("Market closing soon. Closing positions")
+
+                psitions = self.alpaca.list)positions()
+                for position in positions:
+                    if (position.side == 'long'):
+                        orderSide = 'sell'
+                    else: 
+                        orderSide = 'buy'
+                    qty = abs(int(float(positions.qty)))
+                    respSO = []
+                    tSubmitOrder = threading.Thread
+                    (target=self.submitOrder(qty, position.symbol, orderSide, respSO))
+                    tSubmitOrder.start()
+                    tSubmitOrder.join()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
