@@ -79,6 +79,63 @@ class LongShort:
 
         #clear positions
         orders = self.alpaca.list.orders(status="open")
+        for order in orders:
+            self.alpacha.cancel_order(order.id)
+
+        print("taking long position in" + str(self.long))
+        print("taking short position in" + str(self.long))
+
+        #Remove posiions that are no longer in the short or long list, 
+        # and make a list of positions that do not need to change. 
+        #Adjust quantities if needed, 
+        executed = [[], []]
+        positions = self.alpaca.list_positions()
+        self.blacklist.clear()
+        for position in positions:
+            if(self.long.count(positions.symbol) == 0):
+                #position not in short list
+            if(self.short.count(positions.symbol) == 0):
+                #clear position if not in either long of short
+                if (position.side == "long"):
+                    side = "sell"
+                else: 
+                    side = "buy"
+                respSP = []
+                tSO = threading.Thread(target=self.submitOrder, 
+                ergs=[abs(int(float(position.qty))),
+                positions.symbol, side, resSO])
+                tSO.start()
+                tSO.join()
+                else: 
+                    if(positions.side == "long"):
+                        side = "sell"
+                        respSO = []
+                        tSO = threading.Thread(target=self.submitOrder),
+                            args=[int(float(position.qty)),
+                        position.symbol, side, respSO])
+                        tSO.start()
+                        tSO.join()
+                    else: 
+                        if(abd(int(float(position.qty))) == self.qShort):
+                            #Position is where we want it. Pass for now
+                        pass
+                    else: 
+                        diff = abs(int(float(positions.qty))) - self.qShort
+                        if(diff > 0):
+                            side = "buy"
+                        else: 
+                            side = "sell"
+                        respSO = []
+                        tSP = threading.Thread
+                        (target=self.submitOrder, args=[abs(diff), position.symbol, side, respSO])
+                        tSO.start()
+                        tSO.join()
+                    executed[10.append(position.symbol)
+                    self.blacklist.add(position.symbol)
+                else: 
+
+    
+
 
 
 
