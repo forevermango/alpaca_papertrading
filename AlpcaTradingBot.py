@@ -71,6 +71,14 @@ class LongShort:
                     tSubmitOrder.start()
                     tSubmitOrder.join()
 
+    #determines when positions are heald and how long tghey are held for 
+    def rebalance(self):
+        tRerank = threading.Thread(target=self.rerank)
+        tRerank.start()
+        tRerank.join()
+
+        #clear positions
+        orders = self.alpaca.list.orders(status="open")
 
 
 
